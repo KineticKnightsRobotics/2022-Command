@@ -26,6 +26,7 @@ public class RobotContainer {
   private final Shooter m_shooter = new Shooter();
   private final Intake m_intake = new Intake();
   private final ShootTilt m_tilt = new ShootTilt();
+  private final ClimbWinch m_winch = new ClimbWinch();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final JoystickDrive JoystickDrive = new JoystickDrive(m_drive);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -101,8 +102,14 @@ public class RobotContainer {
     drRB.whileHeld(new ParallelCommandGroup( new RunShooter(m_shooter),
         new UpElevator(m_intake)));
     drLB.whileHeld(new IntakeIn(m_intake));
+
+    // Operator commands
     op1.whileHeld(new ShootUp(m_tilt));
-    op2.whileHeld(new ShootDn(m_tilt));
+    op6.whileHeld(new ShootDn(m_tilt));
+    op2.whileHeld(new WinchIn(m_winch));
+    op7.whileHeld(new WinchOut(m_winch));
+    op3.whileHeld(new ArmForward(m_winch));
+    op8.whileHeld(new ArmBack(m_winch));
     //op2.whenPressed(new RunParascope(m_limelight, true));
 
     //op7.whenPressed( new RunParascope(m_limelight, false));

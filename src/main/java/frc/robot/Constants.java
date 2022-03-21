@@ -70,4 +70,5 @@ public final class Constants {
 
         // Climber
         public static final int winch = 40;
+        public static final int ClimbArm = 41;
 }
