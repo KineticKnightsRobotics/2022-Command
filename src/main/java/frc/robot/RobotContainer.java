@@ -25,7 +25,7 @@ public class RobotContainer {
   private final Drive m_drive = new Drive();
   private final Shooter m_shooter = new Shooter();
   private final Intake m_intake = new Intake();
-  private final AirSyst m_airSyst = new AirSyst();
+  private final ShootTilt m_tilt = new ShootTilt();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final JoystickDrive JoystickDrive = new JoystickDrive(m_drive);
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
@@ -46,7 +46,6 @@ public class RobotContainer {
   final JoystickButton drLB = new JoystickButton(drvStick, Constants.drLB);
   final JoystickButton drRB = new JoystickButton(drvStick, Constants.drRB);
   // Operator gamepad
-  /*
   final static Joystick opStick = new Joystick(Constants.opStick);
   final JoystickButton op1 = new JoystickButton(opStick, Constants.op1);
   final JoystickButton op2 = new JoystickButton(opStick, Constants.op2);
@@ -76,7 +75,7 @@ public class RobotContainer {
   final JoystickButton op26 = new JoystickButton(opStick, Constants.op26);
   final JoystickButton op27 = new JoystickButton(opStick, Constants.op27);
   final JoystickButton op28 = new JoystickButton(opStick, Constants.op28);
-  */
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_drive.setDefaultCommand(JoystickDrive);
@@ -97,12 +96,13 @@ public class RobotContainer {
     */
     drA.whileHeld(new IntakeIn(m_intake));
     drB.whileHeld(new UpElevator(m_intake));
-    drX.whenPressed(new TiltShooter(m_airSyst));
+    //drX.whenPressed(new TiltShooter(m_tilt));
     drY.whileHeld(new RunShooter(m_shooter));
     drRB.whileHeld(new ParallelCommandGroup( new RunShooter(m_shooter),
         new UpElevator(m_intake)));
     drLB.whileHeld(new IntakeIn(m_intake));
-    //op1.whileHeld(new RunShooter(m_shooter, shootSpd));
+    op1.whileHeld(new ShootUp(m_tilt));
+    op2.whileHeld(new ShootDn(m_tilt));
     //op2.whenPressed(new RunParascope(m_limelight, true));
 
     //op7.whenPressed( new RunParascope(m_limelight, false));

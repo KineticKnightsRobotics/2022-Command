@@ -66,4 +66,8 @@ public final class Constants {
         // Shooter
         public static final int shootL = 20;
         public static final int shootR = 21;
+        public static final int tiltMotor = 42;
+
+        // Climber
+        public static final int winch = 40;
 }
