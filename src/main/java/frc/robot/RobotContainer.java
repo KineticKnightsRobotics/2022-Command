@@ -10,10 +10,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+//import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 //import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -80,7 +81,8 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_drive.setDefaultCommand(JoystickDrive);
-    CameraServer.startAutomaticCapture();
+    UsbCamera camera = CameraServer.startAutomaticCapture();
+    camera.setResolution(640, 480);
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -98,9 +100,7 @@ public class RobotContainer {
     drA.whileHeld(new IntakeIn(m_intake));
     drB.whileHeld(new UpElevator(m_intake));
     //drX.whenPressed(new TiltShooter(m_tilt));
-    drY.whileHeld(new RunShooter(m_shooter));
-    drRB.whileHeld(new ParallelCommandGroup( new RunShooter(m_shooter),
-        new UpElevator(m_intake)));
+    drRB.whileHeld(new ShootElevate(m_shooter, m_intake));
     drLB.whileHeld(new IntakeIn(m_intake));
 
     // Operator commands

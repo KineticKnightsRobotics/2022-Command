@@ -10,18 +10,18 @@ import frc.robot.Constants;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.*;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class ClimbWinch extends SubsystemBase {
   private CANSparkMax winch;
   private RelativeEncoder m_encoder;
-  private TalonSRX arm;
+  private VictorSPX arm;
 
   /** Creates a new Climber Winch subsystem. */
   public ClimbWinch() {
     winch = new CANSparkMax(Constants.winch, MotorType.kBrushless);
     m_encoder = winch.getEncoder();
-    arm = new TalonSRX(Constants.ClimbArm);
+    arm = new VictorSPX(Constants.ClimbArm);
   }
 
   @Override
@@ -44,11 +44,11 @@ public class ClimbWinch extends SubsystemBase {
   }
   
   public void armF(){
-    arm.set(ControlMode.PercentOutput, 0.2);
+    arm.set(ControlMode.PercentOutput, 0.4);
   }
 
   public void armR(){
-    arm.set(ControlMode.PercentOutput, -0.2);
+    arm.set(ControlMode.PercentOutput, -0.4);
   }
 
   public void armS(){

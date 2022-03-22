@@ -35,8 +35,8 @@ public class Drive extends SubsystemBase {
     leftS.setInverted(true);
 
 
-    leftS.follow(leftM);
-    rightS.follow(rightM);
+    //leftS.follow(leftM);
+    //rightS.follow(rightM);
 }
 
   @Override
@@ -48,10 +48,12 @@ public class Drive extends SubsystemBase {
   public void ArcadeDrive(double speed, double steer) {     
     speed = speed * speed * speed * 0.8 * Constants.maxSpd;
     steer = steer * steer * steer * 0.5 * Constants.maxSpd;
-    lDrive = speed - steer;
+    lDrive = speed + steer;
     leftM.set(lDrive);
-    rDrive = speed + steer;
+    leftS.set(lDrive);
+    rDrive = speed - steer;
     rightM.set(rDrive);
+    rightS.set(rDrive);
     SmartDashboard.putNumber("drive speed", lDrive);
     SmartDashboard.putNumber("drive steer", rDrive);
   }
