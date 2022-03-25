@@ -4,42 +4,40 @@
 
 package frc.robot.commands;
 
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-//import edu.wpi.first.wpilibj.smartdashboard.*;
 
-/** Creates a command to control the robot drive */
-public class JoystickDrive extends CommandBase {
+/** Command to drive the robot in a straight line for 5 seconds*/
+public class AutoShoot extends CommandBase {     //#region extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Drive m_subsystem;
-  private double speed, steer;
-
+  private final Shooter m_subsystem;
+  private final Intake m_subsystem1;
+  private int counter = 0;
   /**
-   * Creates a new ExampleCommand.
+   * Creates a new Autonomous drive command.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public JoystickDrive(Drive subsystem) {
+  public AutoShoot(Shooter subsystem, Intake subsystem1) {
     m_subsystem = subsystem;
+    m_subsystem1 = subsystem1;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_subsystem, m_subsystem1);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    counter = 0;
+    m_subsystem.runShoot();
   }
-
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    speed = RobotContainer.DriverY();
-    steer = RobotContainer.DriverX();
-    m_subsystem.ArcadeDrive(speed, steer);
-    //SmartDashboard.putNumber("drive speed", speed);
-    //SmartDashboard.putNumber("drive steer", steer);
+    counter += 1;
+    if (counter == 40) m_subsystem1.runElevator();
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
@@ -47,6 +45,6 @@ public class JoystickDrive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (counter > 200);
   }
 }

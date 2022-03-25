@@ -57,7 +57,7 @@ public final class Constants {
         public static final int lSlave1 = 6;
         public static final int rMaster = 3;
         public static final int rSlave1 = 4;
-        public static final double maxSpd = 0.8;
+        public static final double maxSpd = 0.5;
 
         // Intake
         public static final int convey = 30;

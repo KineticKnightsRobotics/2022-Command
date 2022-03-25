@@ -31,7 +31,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void revConveyor() {
-    conveyor.set(ControlMode.PercentOutput, 0.5);
+    conveyor.set(ControlMode.PercentOutput, -0.5);
   }
 
   public void stopConveyor(){
@@ -41,8 +41,10 @@ public class Intake extends SubsystemBase {
   public void runElevator(){
     elevator.set(ControlMode.PercentOutput, RobotContainer.elevateSpd);
   }
-
-  public void stopElevator(){
+  public void revElevator(){
+    elevator.set(ControlMode.PercentOutput, -(RobotContainer.elevateSpd/2));
+  }
+ public void stopElevator(){
         elevator.set(ControlMode.PercentOutput, 0.0);
   }
   

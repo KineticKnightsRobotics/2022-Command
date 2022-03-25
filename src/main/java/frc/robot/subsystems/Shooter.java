@@ -31,6 +31,11 @@ public class Shooter extends SubsystemBase {
     rShoot.set(ControlMode.PercentOutput, speed);
   }
 
+  public void reverseShooter(){    
+    lShoot.set(ControlMode.PercentOutput, -0.1);
+    rShoot.set(ControlMode.PercentOutput, -0.1);
+  }
+  
   public void stopShoot(){
     lShoot.set(ControlMode.PercentOutput, 0.0);
     rShoot.set(ControlMode.PercentOutput, 0.0);

@@ -35,8 +35,8 @@ public class Drive extends SubsystemBase {
     leftS.setInverted(true);
 
 
-    //leftS.follow(leftM);
-    //rightS.follow(rightM);
+    leftS.follow(leftM);
+    rightS.follow(rightM);
 }
 
   @Override
@@ -50,10 +50,10 @@ public class Drive extends SubsystemBase {
     steer = steer * steer * steer * 0.5 * Constants.maxSpd;
     lDrive = speed + steer;
     leftM.set(lDrive);
-    leftS.set(lDrive);
+    //leftS.set(lDrive);
     rDrive = speed - steer;
     rightM.set(rDrive);
-    rightS.set(rDrive);
+    //rightS.set(rDrive);
     SmartDashboard.putNumber("drive speed", lDrive);
     SmartDashboard.putNumber("drive steer", rDrive);
   }

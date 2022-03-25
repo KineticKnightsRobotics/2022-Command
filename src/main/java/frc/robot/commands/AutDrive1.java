@@ -3,44 +3,48 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-import frc.robot.subsystems.Intake;
+
+import frc.robot.subsystems.Drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/** A command to run the elevator up */
-public class UpElevator extends CommandBase {
+/** Command to drive the robot in a straight line for 5 seconds*/
+public class AutDrive1 extends CommandBase {     //#region extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Intake m_subsystem;
-
+  private final Drive m_subsystem;
+  private double speed, steer;
+  private int counter = 0;
   /**
-   * Creates a new ExampleCommand.
+   * Creates a new Autonomous drive command.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public UpElevator(Intake subsystem) {
+  public AutDrive1(Drive subsystem) {
     m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(m_subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.runElevator();;
+    counter = 0;
   }
-
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    speed = -0.75;
+    steer = 0;
+    m_subsystem.ArcadeDrive(speed, steer);
+    counter += 1;
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_subsystem.stopElevator();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (counter > 400);
   }
 }

@@ -26,7 +26,7 @@ public class ShootDn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_subsystem.tiltDn();
+    m_subsystem.tiltUp();
   }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
